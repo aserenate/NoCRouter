@@ -6,7 +6,6 @@ module chiplet_rc_unit #(
     parameter DEST_ADDR_SIZE_X = 4,
     parameter DEST_ADDR_SIZE_Y = 4
 )(
-    input logic network_id,
     input logic [DEST_ADDR_SIZE_X-1 : 0] x_dest_i,
     input logic [DEST_ADDR_SIZE_Y-1 : 0] y_dest_i,
     output port_t out_port_o
@@ -32,45 +31,23 @@ module chiplet_rc_unit #(
     */
     always_comb
     begin
-        if (network_id == 0) begin
-            if (x_offset < 0)
-            begin
-                out_port_o = WEST_0;
-            end
-            else if (x_offset > 0)
-            begin
-                out_port_o = EAST_0;
-            end
-            else if (x_offset == 0 & y_offset < 0)
-            begin
-                out_port_o = NORTH_0;
-            end
-            else if (x_offset == 0 & y_offset > 0) begin
-                out_port_o = SOUTH_0;
-            end
-            else begin
-                out_port_o = LOCAL_0;
-            end
+        if (x_offset < 0)
+        begin
+            out_port_o = WEST;
+        end
+        else if (x_offset > 0)
+        begin
+            out_port_o = EAST;
+        end
+        else if (x_offset == 0 & y_offset < 0)
+        begin
+            out_port_o = NORTH;
+        end
+        else if (x_offset == 0 & y_offset > 0) begin
+            out_port_o = SOUTH;
         end
         else begin
-            if (x_offset < 0)
-            begin
-                out_port_o = WEST_1;
-            end
-            else if (x_offset > 0)
-            begin
-                out_port_o = EAST_1;
-            end
-            else if (x_offset == 0 & y_offset < 0)
-            begin
-                out_port_o = NORTH_1;
-            end
-            else if (x_offset == 0 & y_offset > 0) begin
-                out_port_o = SOUTH_1;
-            end
-            else begin
-                out_port_o = LOCAL_1;
-            end
+            out_port_o = LOCAL;
         end
     end
 

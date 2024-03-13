@@ -70,7 +70,6 @@ module input_port #(
         .DEST_ADDR_SIZE_Y(DEST_ADDR_SIZE_Y)
     )
     chiplet_rc_unit (
-        .network_id(data_i.data.head_data.sub_network),
         .x_dest_i(data_i.data.head_data.x_dest),
         .y_dest_i(data_i.data.head_data.y_dest),
         .out_port_o(out_port_cmd)

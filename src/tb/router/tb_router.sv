@@ -228,8 +228,9 @@ module tb_router;
 
     // Output dump
     task dump_output();
-        $dumpfile("out.vcd");
-        $dumpvars(0, tb_router);
+        $vcdplusfile("simv.vpd");
+        $vcdplusmemon;
+        $vcdpluson;
     endtask
 
     // Initialize signals
@@ -291,7 +292,7 @@ module tb_router;
     task automatic push_flit(input logic [PORT_SIZE-1:0] port_id, input integer pkt_id, input integer id);
         if( ~head_done[port_id] | int'(multiple_head[id]) == 0)
         begin
-            $display("push %d, dest %d, pktid %d", $time, computeOutport(x_dest[port_id], y_dest[port_id]), pkt_id);
+            $display("push %d, dest %d, pktid %d", $time, computeOutport(x_dest[id], y_dest[id]), pkt_id);
             packet_queue[pkt_id].push_back(flit_written[port_id]);
             $display("Pushed flit, queue size %d", packet_queue[pkt_id].size());
             flit_to_read_next[pkt_id]++;
@@ -348,12 +349,15 @@ module tb_router;
         automatic logic [PORT_SIZE-1:0] port_id;
     
         for(i=0; i<test_port_num.size(); i++)
-        begin
+        begin // 遍历每一个待发出去的数据包
             for(j=0; j<PORT_SIZE; j++)
             begin
                 port_id[j] = test_port_num[i][j];
             end
             
+            // port_id: packet输入的port编号
+            // pkt_id: packet的编码号
+            // p_size: packet包含的Flit数目
             pkt_id = int'(packet_id[i]);
             p_size = pkt_size[i];
             
@@ -436,7 +440,7 @@ module tb_router;
         automatic logic [PORT_SIZE-1:0] port_id;
         
         @(negedge clk)
-//        $display("Check %d, port_num %d, toread %d, valid_flit_out %b",$time, port_num, flit_to_read[port_num],valid_flit_out[computeOutport(x_dest, y_dest)]); 
+        // $display("Check %d, port_num %d, toread %d, valid_flit_out %b",$time, port_num, flit_to_read[port_num],valid_flit_out[computeOutport(x_dest, y_dest)]); 
         begin 
             for(i=0; i<PORT_NUM; i++)
             begin

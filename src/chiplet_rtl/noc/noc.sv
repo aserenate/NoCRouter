@@ -17,8 +17,8 @@ package noc_params;
 
 	localparam FLIT_DATA_SIZE = ADDR_NETWORK + DEST_ADDR_SIZE_X+DEST_ADDR_SIZE_Y+HEAD_PAYLOAD_SIZE;
 
-	typedef enum logic [3:0] {LOCAL_0, LOCAL_1, NORTH_0, NORTH_1, SOUTH_0, SOUTH_1, WEST_0, WEST_1, EAST_0, EAST_1} port_t;
-	localparam PORT_NUM = 10;
+	typedef enum logic [2:0] {LOCAL, NORTH, SOUTH, WEST, EAST} port_t;
+	localparam PORT_NUM = 5;
 	localparam PORT_SIZE = $clog2(PORT_NUM);
 
 	typedef enum logic [1:0] {HEAD, BODY, TAIL, HEADTAIL} flit_label_t;

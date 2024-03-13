@@ -1,7 +1,7 @@
 import noc_params::*;
 
 module input_block #(
-    parameter PORT_NUM = 10,
+    parameter PORT_NUM = 5,
     parameter BUFFER_SIZE = 8,
     parameter X_CURRENT = MESH_SIZE_X/2,
     parameter Y_CURRENT = MESH_SIZE_Y/2
